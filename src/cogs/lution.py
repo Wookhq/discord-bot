@@ -24,6 +24,24 @@ class LutionMarketplace(commands.Cog):
         for theme in themes:
             embed.add_field(name=theme, value=marketplace.get_theme_description(theme) or "No description available", inline=False)
         await thememes.edit(embed=embed)
+    
+    @commands.command()
+    async def mods(self, ctx):
+        embed = discord.Embed(title="Lution Marketplace", description="Fetching mods...", color=0x00b0f4)
+        modmes = await ctx.send(embed=embed)
+
+        from modules.lutionmarketplace import LutionMarketplace
+        marketplace = LutionMarketplace()
+        mods = marketplace.get_mods()
+        
+        if not mods:
+            await modmes.edit("No mods found.")
+            return
+        
+        embed = discord.Embed(title="Available Mods", description="These are available Mods", color=0x00b0f4)
+        for mod in mods:
+            embed.add_field(name=mod, value=marketplace.get_mod_description(mod) or "No description available", inline=False)
+        await modmes.edit(embed=embed)
 
 
 async def setup(bot):

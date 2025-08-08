@@ -89,8 +89,9 @@ class LutionMarketplace:
         content = self.themedata
         info_list = json.loads(content.decoded_content.decode())
         entry = next((item for item in info_list if item["name"] == theme), None)
+        path = entry["path"]
         if entry:
-            return f"https://api.github.com/repos/Wookhq/Lution-marketplace/contents/{entry["path"]}"
+            return f"https://api.github.com/repos/Wookhq/Lution-marketplace/contents/{path}"
         else:
             return None
     
@@ -98,7 +99,8 @@ class LutionMarketplace:
         content = self.themedata
         info_list = json.loads(content.decoded_content.decode())
         entry = next((item for item in info_list if item["name"] == mod), None)
+        path = entry["path"]
         if entry: 
-            return f"https://api.github.com/repos/Wookhq/Lution-marketplace/contents/{entry["path"]}" 
+            return f"https://api.github.com/repos/Wookhq/Lution-marketplace/contents/{path}" 
         else:
             return None

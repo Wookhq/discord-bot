@@ -45,6 +45,9 @@ class LutionMarketplace(commands.Cog):
     
     @commands.command()
     async def infotheme(self, ctx, *, title: str):
+        embed = discord.Embed(title="Lution Marketplace", description="Fetching theme...", color=0x00b0f4)
+        thememes = await ctx.send(embed=embed)
+
         from modules.lutionmarketplace import LutionMarketplace
         marketplace = LutionMarketplace()
         description = marketplace.get_theme_description(title)
@@ -52,7 +55,8 @@ class LutionMarketplace(commands.Cog):
         image = marketplace.get_theme_image(title)
 
         if not description:
-            await ctx.send(f"No theme found with title: {title}")
+            embed = discord.Embed(title="Lution Marketplace", description="Not found", color=0x00b0f4)
+            await thememes.edit(embed=embed)
             return
         
         embed = discord.Embed(title=title, description=description, color=0x00b0f4)
@@ -61,10 +65,13 @@ class LutionMarketplace(commands.Cog):
         if image:
             embed.set_image(url=image)
         
-        await ctx.send(embed=embed)
+        await thememes.edit(embed=embed)
     
     @commands.command()
     async def infomod(self, ctx, *, mod: str):
+        embed = discord.Embed(title="Lution Marketplace", description="Fetching mod...", color=0x00b0f4)
+        modmes = await ctx.send(embed=embed)
+
         from modules.lutionmarketplace import LutionMarketplace
         marketplace = LutionMarketplace()
         description = marketplace.get_mod_description(mod)
@@ -72,7 +79,8 @@ class LutionMarketplace(commands.Cog):
         image = marketplace.get_mod_image(mod)
 
         if not description:
-            await ctx.send(f"No mod found with title: {mod}")
+            embed = discord.Embed(title="Lution Marketplace", description="Not found", color=0x00b0f4)
+            await modmes.edit(embed=embed)
             return
         
         embed = discord.Embed(title=mod, description=description, color=0x00b0f4)
@@ -81,7 +89,7 @@ class LutionMarketplace(commands.Cog):
         if image:
             embed.set_image(url=image)
         
-        await ctx.send(embed=embed)
+        await modmes.edit(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(LutionMarketplace(bot))

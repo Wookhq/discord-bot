@@ -8,8 +8,9 @@ class LutionMarketplace(commands.Cog):
     
     @commands.command()
     async def themes(self, ctx):
-        thememes = await ctx.send("`Loading themes...`")
-        
+        embed = discord.Embed(title="Lution Marketplace", description="Fetching themes...", color=0x00b0f4)
+        thememes = await ctx.send(embed=embed)
+
         from modules.lutionmarketplace import LutionMarketplace
         marketplace = LutionMarketplace()
         themes = marketplace.get_themes()

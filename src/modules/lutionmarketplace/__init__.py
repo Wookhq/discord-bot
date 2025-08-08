@@ -35,11 +35,23 @@ class LutionMarketplace:
             if item.get("title") == title:
                 return item.get("body", None)
             
-
     def get_mod_description(self, mod):
         content = self.moddata
         data = json.loads(content.decoded_content.decode())
         for item in data:
             if item.get("title") == mod:
                 return item.get("body", None)
-    
+
+    def get_theme_sb(self, title):
+        content = self.themedata
+        data = json.loads(content.decoded_content.decode())
+        for item in data:
+            if item.get("title") == title:
+                return item.get("sb", None)
+
+    def get_mod_sb(self, mod):
+        content = self.moddata
+        data = json.loads(content.decoded_content.decode())
+        for item in data:
+            if item.get("title") == mod:
+                return item.get("sb", None)

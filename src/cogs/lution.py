@@ -8,11 +8,12 @@ class LutionMarketplace(commands.Cog):
     
     @commands.command()
     async def themes(self, ctx):
+        thememes = await ctx.send("`Loading themes...`")
+        
         from modules.lutionmarketplace import LutionMarketplace
         marketplace = LutionMarketplace()
         themes = marketplace.get_themes()
         
-        thememes = await ctx.send("`Loading themes...`")
         
         if not themes:
             await thememes.edit("No themes found.")

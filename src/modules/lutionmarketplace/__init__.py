@@ -55,3 +55,31 @@ class LutionMarketplace:
         for item in data:
             if item.get("title") == mod:
                 return item.get("sb", None)
+            
+    def get_theme_image(self, title):
+        content = self.themedata
+        data = json.loads(content.decoded_content.decode())
+        for item in data:
+            if item.get("title") == title:
+                return item.get("image", None)
+    
+    def get_mod_image(self, mod):
+        content = self.moddata
+        data = json.loads(content.decoded_content.decode())
+        for item in data:
+            if item.get("title") == mod:
+                return item.get("image", None)
+            
+    def get_theme_author(self, title):
+        content = self.themedata
+        data = json.loads(content.decoded_content.decode())
+        for item in data:
+            if item.get("title") == title:
+                return item.get("author", None)
+            
+    def get_mod_author(self, mod):
+        content = self.moddata
+        data = json.loads(content.decoded_content.decode())
+        for item in data:
+            if item.get("title") == mod:
+                return item.get("author", None)

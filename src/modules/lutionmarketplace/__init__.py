@@ -88,7 +88,7 @@ class LutionMarketplace:
     def get_theme_download(self, theme):
         content = self.themedata
         info_list = json.loads(content.decoded_content.decode())
-        entry = next((item for item in info_list if item["name"] == theme), None)
+        entry = next((item for item in info_list if isinstance(item, dict) and item.get("name") == theme), None)
         path = entry["path"]
         if entry:
             return f"https://api.github.com/repos/Wookhq/Lution-marketplace/contents/{path}"
@@ -98,7 +98,7 @@ class LutionMarketplace:
     def get_mod_download(self, mod):
         content = self.themedata
         info_list = json.loads(content.decoded_content.decode())
-        entry = next((item for item in info_list if item["name"] == mod), None)
+        entry = next((item for item in info_list if isinstance(item, dict) and item.get("name") == mod), None)
         path = entry["path"]
         if entry: 
             return f"https://api.github.com/repos/Wookhq/Lution-marketplace/contents/{path}" 

@@ -86,7 +86,7 @@ class LutionMarketplace:
                 return item.get("author", None)
     
     def get_theme_download(self, theme):
-        content = self.themedata
+        content = self.themeinfo
         info_list = json.loads(content.decoded_content.decode())
         entry = next((item for item in info_list if isinstance(item, dict) and item.get("name") == theme), None)
         path = entry["path"]
@@ -96,7 +96,7 @@ class LutionMarketplace:
             return None
     
     def get_mod_download(self, mod):
-        content = self.themedata
+        content = self.modinfo
         info_list = json.loads(content.decoded_content.decode())
         entry = next((item for item in info_list if isinstance(item, dict) and item.get("name") == mod), None)
         path = entry["path"]

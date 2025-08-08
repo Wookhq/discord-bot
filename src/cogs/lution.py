@@ -12,14 +12,16 @@ class LutionMarketplace(commands.Cog):
         marketplace = LutionMarketplace()
         themes = marketplace.get_themes()
         
+        thememes = await ctx.send("`Loading themes...`")
+        
         if not themes:
-            await ctx.send("No themes found.")
+            await thememes.edit("No themes found.")
             return
         
         embed = discord.Embed(title="Available Themes", description="These are available Themes", color=0x00b0f4)
         for theme in themes:
             embed.add_field(name=theme, value=marketplace.get_theme_description(theme) or "No description available", inline=False)
-        await ctx.send(embed=embed)
+        await thememes.edit(embed=embed)
 
 
 async def setup(bot):

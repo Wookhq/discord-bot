@@ -14,6 +14,7 @@ class LutionMarketplace:
     def __init__(self):
         self.themedata = repo.get_contents("Assets/Themes/content.json")
         self.moddata = repo.get_contents("Assets/Mods/content.json")
+        self.themeinfo = repo.get_contents("Assets/Themes/info.json")
         
 
     def get_themes(self):
@@ -83,3 +84,21 @@ class LutionMarketplace:
         for item in data:
             if item.get("title") == mod:
                 return item.get("author", None)
+    
+    def get_theme_download(self, theme):
+        content = self.themedata
+        info_list = json.loads(content.decoded_content.decode())
+        entry = next((item for item in info_list if item["name"] == theme), None)
+        if entry:
+            return f"https://api.github.com/repos/Wookhq/Lution-marketplace/contents/{entry["path"]}"
+        else:
+            return None
+    
+    def get_mod_download(self, mod):
+        content = self.themedata
+        info_list = json.loads(content.decoded_content.decode())
+        entry = next((item for item in info_list if item["name"] == mod), None)
+        if entry: 
+            return f"https://api.github.com/repos/Wookhq/Lution-marketplace/contents/{entry["path"]}" 
+        else:
+            return None

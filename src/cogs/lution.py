@@ -53,6 +53,7 @@ class LutionMarketplace(commands.Cog):
         description = marketplace.get_theme_description(title)
         sb = marketplace.get_theme_sb(title)
         image = marketplace.get_theme_image(title)
+        link = marketplace.get_theme_download(title)
 
         if not description:
             embed = discord.Embed(title="Lution Marketplace", description="Not found", color=0x00b0f4)
@@ -64,6 +65,8 @@ class LutionMarketplace(commands.Cog):
             embed.add_field(name="Status", value=sb, inline=False)
         if image:
             embed.set_image(url=image)
+        if link:
+            embed.add_field(name="Download", value=f"[Click here]({link})", inline=False)
         
         await thememes.edit(embed=embed)
     
@@ -77,6 +80,7 @@ class LutionMarketplace(commands.Cog):
         description = marketplace.get_mod_description(mod)
         sb = marketplace.get_mod_sb(mod)
         image = marketplace.get_mod_image(mod)
+        link = marketplace.get_mod_download(mod)
 
         if not description:
             embed = discord.Embed(title="Lution Marketplace", description="Not found", color=0x00b0f4)
@@ -88,6 +92,8 @@ class LutionMarketplace(commands.Cog):
             embed.add_field(name="Status", value=sb, inline=False)
         if image:
             embed.set_image(url=image)
+        if link:
+            embed.add_field(name="Download", value=f"[Click here]({link})", inline=False)
         
         await modmes.edit(embed=embed)
 

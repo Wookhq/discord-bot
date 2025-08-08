@@ -42,7 +42,46 @@ class LutionMarketplace(commands.Cog):
         for mod in mods:
             embed.add_field(name=mod, value=marketplace.get_mod_description(mod) or "No description available", inline=False)
         await modmes.edit(embed=embed)
+    
+    @commands.command()
+    async def infotheme(self, ctx, *, title: str):
+        from modules.lutionmarketplace import LutionMarketplace
+        marketplace = LutionMarketplace()
+        description = marketplace.get_theme_description(title)
+        sb = marketplace.get_theme_sb(title)
+        image = marketplace.get_theme_image(title)
 
+        if not description:
+            await ctx.send(f"No theme found with title: {title}")
+            return
+        
+        embed = discord.Embed(title=title, description=description, color=0x00b0f4)
+        if sb:
+            embed.add_field(name="Status", value=sb, inline=False)
+        if image:
+            embed.set_image(url=image)
+        
+        await ctx.send(embed=embed)
+    
+    @commands.command()
+    async def infomod(self, ctx, *, mod: str):
+        from modules.lutionmarketplace import LutionMarketplace
+        marketplace = LutionMarketplace()
+        description = marketplace.get_mod_description(mod)
+        sb = marketplace.get_mod_sb(mod)
+        image = marketplace.get_mod_image(mod)
+
+        if not description:
+            await ctx.send(f"No mod found with title: {mod}")
+            return
+        
+        embed = discord.Embed(title=mod, description=description, color=0x00b0f4)
+        if sb:
+            embed.add_field(name="Status", value=sb, inline=False)
+        if image:
+            embed.set_image(url=image)
+        
+        await ctx.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(LutionMarketplace(bot))

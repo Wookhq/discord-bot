@@ -21,19 +21,16 @@ async def on_ready():
 
 @bot.event
 async def on_command_error(ctx, error):
-    # print full traceback to terminal
     print("===== COMMAND ERROR =====")
     traceback.print_exception(type(error), error, error.__traceback__)
     print("=========================")
-
-    # optional: send a small error message in discord
     await ctx.send(f"⚠️ oops: `{error}`")
 
 async def load_cogs():
-    for filename in os.listdir("./cogs"):
+    cogs_dir = os.path.join(os.path.dirname(__file__), "cogs")
+    for filename in os.listdir(cogs_dir):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
-            print(f"Loaded cog: {filename[:-3]}")
 
 async def main():
     async with bot:

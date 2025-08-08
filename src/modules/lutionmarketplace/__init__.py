@@ -1,5 +1,6 @@
 import json
 import os
+import requests
 from dotenv import load_dotenv
 from github import Github
 from github import Auth
@@ -86,21 +87,23 @@ class LutionMarketplace:
                 return item.get("author", None)
     
     def get_theme_download(self, theme):
-        content = self.themeinfo
+        content = self.themeinfo  # Assets/Themes/info.json
         info_list = json.loads(content.decoded_content.decode())
         entry = next((item for item in info_list if isinstance(item, dict) and item.get("name") == theme), None)
-        path = entry["path"]
-        if entry:
-            return f"https://api.github.com/repos/Wookhq/Lution-marketplace/contents/{path}"
-        else:
+        if not entry:
+            print(f"[get_theme_download] Theme not found: {theme}")
             return None
-    
+        path = entry["path"]
+        r = requests.get(f"https://api.github.com/repos/Wookhq/Lution-Marketplace/contents/{path}")
+        return r.json().get("download_url")
+
     def get_mod_download(self, mod):
-        content = self.modinfo
-        info_list = json.loads(content.decoded_content.decode())
+        modinfo = repo.get_contents("Assets/Mods/info.json")  # load correct info.json
+        info_list = json.loads(modinfo.decoded_content.decode())
         entry = next((item for item in info_list if isinstance(item, dict) and item.get("name") == mod), None)
-        path = entry["path"]
-        if entry: 
-            return f"https://api.github.com/repos/Wookhq/Lution-marketplace/contents/{path}" 
-        else:
+        if not entry:
+            print(f"[get_mod_download] Mod not found: {mod}")
             return None
+        path = entry["path"]
+        r = requests.get(f"https://api.github.com/repos/Wookhq/Lution-Marketplace/contents/{path}")
+        return r.json().get("download_url")

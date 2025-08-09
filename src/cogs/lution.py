@@ -8,7 +8,7 @@ class LutionMarketplace(commands.Cog):
     
     @commands.command()
     async def themes(self, ctx):
-        embed = discord.Embed(title="Lution Marketplace", description="Fetching themes...", color=0x00b0f4)
+        embed = discord.Embed(title="<:Loading:1403596623732277338> Lution Marketplace", description="Fetching themes...", color=0x00b0f4)
         thememes = await ctx.send(embed=embed)
 
         from modules.lutionmarketplace import LutionMarketplace
@@ -17,7 +17,7 @@ class LutionMarketplace(commands.Cog):
         
         
         if not themes:
-            await thememes.edit("No themes found.")
+            await thememes.edit("<Invaild:1403596167547195502> No themes found.")
             return
         
         embed = discord.Embed(title="Available Themes", description="These are available Themes", color=0x00b0f4)
@@ -27,7 +27,7 @@ class LutionMarketplace(commands.Cog):
     
     @commands.command()
     async def mods(self, ctx):
-        embed = discord.Embed(title="Lution Marketplace", description="Fetching mods...", color=0x00b0f4)
+        embed = discord.Embed(title="<:Loading:1403596623732277338> Lution Marketplace", description="Fetching mods...", color=0x00b0f4)
         modmes = await ctx.send(embed=embed)
 
         from modules.lutionmarketplace import LutionMarketplace
@@ -45,7 +45,7 @@ class LutionMarketplace(commands.Cog):
     
     @commands.command()
     async def infotheme(self, ctx, *, title: str):
-        embed = discord.Embed(title="Lution Marketplace", description="Fetching theme...", color=0x00b0f4)
+        embed = discord.Embed(title="<:Loading:1403596623732277338> Lution Marketplace", description="Fetching theme...", color=0x00b0f4)
         thememes = await ctx.send(embed=embed)
 
         from modules.lutionmarketplace import LutionMarketplace
@@ -56,7 +56,7 @@ class LutionMarketplace(commands.Cog):
         link = marketplace.get_theme_download(title)
 
         if not description:
-            embed = discord.Embed(title="Lution Marketplace", description="Not found", color=0x00b0f4)
+            embed = discord.Embed(title="<Invaild:1403596167547195502> Lution Marketplace", description="Not found", color=0x00b0f4)
             await thememes.edit(embed=embed)
             return
         
@@ -72,7 +72,7 @@ class LutionMarketplace(commands.Cog):
     
     @commands.command()
     async def infomod(self, ctx, *, mod: str):
-        embed = discord.Embed(title="Lution Marketplace", description="Fetching mod...", color=0x00b0f4)
+        embed = discord.Embed(title="<:Loading:1403596623732277338> Lution Marketplace", description="Fetching mod...", color=0x00b0f4)
         modmes = await ctx.send(embed=embed)
 
         from modules.lutionmarketplace import LutionMarketplace
@@ -83,7 +83,7 @@ class LutionMarketplace(commands.Cog):
         link = marketplace.get_mod_download(mod)
 
         if not description:
-            embed = discord.Embed(title="Lution Marketplace", description="Not found", color=0x00b0f4)
+            embed = discord.Embed(title="<Invaild:1403596167547195502> Lution Marketplace", description="Not found", color=0x00b0f4)
             await modmes.edit(embed=embed)
             return
         

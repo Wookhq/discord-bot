@@ -5,6 +5,7 @@ import discord
 class Mods(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.vaild_emoji = "<:valid:1403596136039579750>"
 
     @commands.command()
     async def ban(self, ctx, member: discord.Member = None, *, reason: str = "No reason provided"):
@@ -19,7 +20,7 @@ class Mods(commands.Cog):
                 
                 await member.ban(reason=reason)
                 embed = discord.Embed(title="Banned!",
-                        description=f"Banned {member.mention} for {reason}",
+                        description=f"{self.vaild_emoji} Banned {member.mention} for {reason}",
                         colour=0x00b0f4)
 
                 await ctx.send(embed=embed)
@@ -49,7 +50,7 @@ class Mods(commands.Cog):
                     if (user.name, user.discriminator) == (member_name, member_discriminator):
                         await ctx.guild.unban(user)
                         embed = discord.Embed(title="Unbanned!",
-                                description=f"Unbanned {user.mention}",
+                                description=f"{self.vaild_emoji} Unbanned {user.mention}",
                                 colour=0x00b0f4)
 
                         await ctx.send(embed=embed)
@@ -75,7 +76,7 @@ class Mods(commands.Cog):
                     raise PermissionError("I can't kick, no perms")
                 await member.kick(reason=reason)
                 embed = discord.Embed(title="Kicked!",
-                        description=f"Kicked {member.mention} for {reason}",
+                        description=f"{self.vaild_emoji} Kicked {member.mention} for {reason}",
                         colour=0x00b0f4)
 
                 await ctx.send(embed=embed)

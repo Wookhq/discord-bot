@@ -31,6 +31,7 @@ class Mods(commands.Cog):
 
         else:
             await ctx.send("You don't have permission to ban members.")
+            await ctx.send(file=discord.File(get_random_shitpost()))
     @commands.command()
     async def unban(self, ctx, *, member: str = None):
         if member is None:
@@ -63,6 +64,7 @@ class Mods(commands.Cog):
                 print(e)
         else:
             await ctx.send("You don't have permission to unban members.")
+            await ctx.send(file=discord.File(get_random_shitpost()))
 
     @commands.command()
     async def kick(self, ctx, member: discord.Member = None, *, reason: str = "No reason provided"):
@@ -86,6 +88,7 @@ class Mods(commands.Cog):
                 print(e)
         else:
             await ctx.send("You don't have permission to kick members.")
+            await ctx.send(file=discord.File(get_random_shitpost()))
 
 
 async def setup(bot):

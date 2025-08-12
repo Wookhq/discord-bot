@@ -1,5 +1,5 @@
 from discord.ext import commands
-from modules.shitpost import get_random_shitpost
+from modules.shitpost import get_next_shitpost
 import discord
 
 class Mods(commands.Cog):
@@ -10,7 +10,7 @@ class Mods(commands.Cog):
     @commands.command()
     async def ban(self, ctx, member: discord.Member = None, *, reason: str = "No reason provided"):
         if member is None:
-            file = discord.File(get_random_shitpost())
+            file = discord.File(get_next_shitpost())
             await ctx.send(file=file)
         elif ctx.author.guild_permissions.ban_members:
             try:
@@ -25,13 +25,13 @@ class Mods(commands.Cog):
 
                 await ctx.send(embed=embed)
             except Exception as e:
-                    file = discord.File(get_random_shitpost())
+                    file = discord.File(get_next_shitpost())
                     await ctx.send(file=file)
                     print(e)
 
         else:
             await ctx.send("You don't have permission to ban members.")
-            await ctx.send(file=discord.File(get_random_shitpost()))
+            await ctx.send(file=discord.File(get_next_shitpost()))
     @commands.command()
     async def unban(self, ctx, *, member: str = None):
         if member is None:
@@ -59,17 +59,17 @@ class Mods(commands.Cog):
 
                 await ctx.send(f"{member} not found in the ban list.")
             except Exception as e:
-                file = discord.File(get_random_shitpost())
+                file = discord.File(get_next_shitpost())
                 await ctx.send(file=file)
                 print(e)
         else:
             await ctx.send("You don't have permission to unban members.")
-            await ctx.send(file=discord.File(get_random_shitpost()))
+            await ctx.send(file=discord.File(get_next_shitpost()))
 
     @commands.command()
     async def kick(self, ctx, member: discord.Member = None, *, reason: str = "No reason provided"):
         if member is None:
-            file = discord.File(get_random_shitpost())
+            file = discord.File(get_next_shitpost())
             await ctx.send(file=file)
         elif ctx.author.guild_permissions.kick_members:
             try:
@@ -83,12 +83,12 @@ class Mods(commands.Cog):
 
                 await ctx.send(embed=embed)
             except Exception as e:
-                file = discord.File(get_random_shitpost())
+                file = discord.File(get_next_shitpost())
                 await ctx.send(file=file)
                 print(e)
         else:
             await ctx.send("You don't have permission to kick members.")
-            await ctx.send(file=discord.File(get_random_shitpost()))
+            await ctx.send(file=discord.File(get_next_shitpost()))
 
 
 async def setup(bot):

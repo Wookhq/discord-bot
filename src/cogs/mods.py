@@ -35,7 +35,7 @@ class Mods(commands.Cog):
     @commands.command()
     async def unban(self, ctx, *, member: str = None):
         if member is None:
-            file = discord.File(get_random_shitpost())
+            file = discord.File(get_next_shitpost())
             await ctx.send(file=file)
         elif ctx.author.guild_permissions.ban_members:
             try:

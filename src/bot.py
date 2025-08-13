@@ -29,7 +29,7 @@ async def on_command_error(ctx, error):
 async def load_cogs():
     cogs_dir = os.path.join(os.path.dirname(__file__), "cogs")
     for filename in os.listdir(cogs_dir):
-        if filename.endswith(".py"):
+        if filename.endswith(".py") and not filename.startswith("lution"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
 
 async def main():

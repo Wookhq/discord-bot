@@ -1,16 +1,16 @@
-# type: ignore
 import os
 import asyncio
 import traceback
 import discord
 from discord.ext import commands
-from dotenv import load_dotenv
 from discord import app_commands
-
+from dotenv import load_dotenv
+from typing import Optional
 
 load_dotenv()
-TOKEN = os.getenv("DISCORD_TOKEN")
-PREFIX = os.getenv("COMMAND_PREFIX", "!")
+TOKEN: Optional[str] = os.getenv("DISCORD_TOKEN")
+PREFIX: str = os.getenv("COMMAND_PREFIX", "!")
+
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -18,6 +18,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 
 bot.remove_command("help")
+
 @bot.event
 async def on_ready():
     print(f"logged in as {bot.user} 👀")
@@ -32,13 +33,23 @@ async def on_command_error(ctx, error):
     print("===== COMMAND ERROR =====")
     traceback.print_exception(type(error), error, error.__traceback__)
     print("=========================")
-    await ctx.send(f"⚠️ oops: `{error}`")
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("⚠️ You don't have permission to use this command!")
+    else:
+        await ctx.send(f"⚠️ oops: `{error}`")
 
 async def load_cogs():
     cogs_dir = os.path.join(os.path.dirname(__file__), "cogs")
+    if not os.path.exists(cogs_dir):
+        print(f"❌ Cogs directory '{cogs_dir}' not found")
+        return
     for filename in os.listdir(cogs_dir):
         if filename.endswith(".py"):
-            await bot.load_extension(f"cogs.{filename[:-5]}")
+            try:
+                await bot.load_extension(f"cogs.{filename[:-5]}")
+                print(f"✅ Loaded cog: {filename[:-5]}")
+            except Exception as e:
+                print(f"❌ Failed to load cog {filename[:-5]}: {e}")
 
 @bot.tree.command(name="help", description="Show available commands")
 async def help(interaction: discord.Interaction):
@@ -54,10 +65,10 @@ async def help(interaction: discord.Interaction):
     embed.add_field(name="Commands", value="\n".join(commands_list), inline=False)
     await interaction.response.send_message(embed=embed)
 
-
 async def main():
     async with bot:
         await load_cogs()
         await bot.start(TOKEN)
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

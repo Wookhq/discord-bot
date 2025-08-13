@@ -21,7 +21,7 @@ class workflowinfo(discord.ui.View):
 
         await interaction.response.defer(ephemeral=True)
         try:
-            wk.run_workflow(self.workflow_id, branch="main")
+            wk.run_workflow(self.workflow_id, branch="latest")
             await interaction.followup.send("✅ Workflow requested successfully!", ephemeral=True)
         except Exception as e:
             await interaction.followup.send(f"❌ Error running workflow: {e}", ephemeral=True)

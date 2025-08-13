@@ -18,6 +18,11 @@ bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 @bot.event
 async def on_ready():
     print(f"logged in as {bot.user} 👀")
+    try:
+        synced = await bot.tree.sync()
+        print(f"✅ synced {len(synced)} slash commands")
+    except Exception as e:
+        print(f"❌ sync failed: {e}")
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -29,7 +34,7 @@ async def on_command_error(ctx, error):
 async def load_cogs():
     cogs_dir = os.path.join(os.path.dirname(__file__), "cogs")
     for filename in os.listdir(cogs_dir):
-        if filename.endswith(".py") and not filename.startswith("lution"):
+        if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
 
 async def main():

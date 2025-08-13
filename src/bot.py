@@ -44,12 +44,12 @@ async def load_cogs():
         print(f"❌ Cogs directory '{cogs_dir}' not found")
         return
     for filename in os.listdir(cogs_dir):
-        if filename.endswith(".py"):
+        if filename.endswith(".py") and filename not in ["__init__.py", "__pycache__"]:
             try:
-                await bot.load_extension(f"cogs.{filename[:-5]}")
-                print(f"✅ Loaded cog: {filename[:-5]}")
+                await bot.load_extension(f"cogs.{filename[:-3]}")  # Use :-3 to remove .py
+                print(f"✅ Loaded cog: {filename[:-3]}")
             except Exception as e:
-                print(f"❌ Failed to load cog {filename[:-5]}: {e}")
+                print(f"❌ Failed to load cog {filename[:-3]}: {e}")
 
 @bot.tree.command(name="help", description="Show available commands")
 async def help(interaction: discord.Interaction):

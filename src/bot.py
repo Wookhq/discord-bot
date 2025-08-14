@@ -65,6 +65,11 @@ async def help(interaction: discord.Interaction):
     embed.add_field(name="Commands", value="\n".join(commands_list), inline=False)
     await interaction.response.send_message(embed=embed)
 
+@bot.check
+async def onlycommands(ctx):
+    allowed_channels = [int(ch.strip()) for ch in os.getenv("COMMAND_CHANNELS", "").split(",")]
+    return ctx.channel.id in allowed_channels
+
 async def main():
     async with bot:
         await load_cogs()

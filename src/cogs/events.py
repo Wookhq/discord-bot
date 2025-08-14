@@ -14,7 +14,7 @@ class JoinEvent(commands.Cog):
             embed.set_thumbnail(url=member.display_avatar.url)
             await channel.send(embed=embed)
     
-    @commands.Cog.listener
+    @commands.Cog.listener()
     async def on_member_leave(self, member):
         channel = member.guild.system_channel
         if channel:

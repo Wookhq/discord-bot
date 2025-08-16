@@ -9,13 +9,12 @@ from typing import Optional
 
 load_dotenv()
 TOKEN: Optional[str] = os.getenv("DISCORD_TOKEN")
-PREFIX: str = os.getenv("COMMAND_PREFIX", "!")
 
 
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix=PREFIX, intents=intents)
+bot = commands.Bot(command_prefix="!", intents=intents)
 
 bot.remove_command("help")
 
